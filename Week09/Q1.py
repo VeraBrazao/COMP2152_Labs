@@ -26,11 +26,6 @@ def safe_run(label, func, *args):
         print(f"  [ERROR] {label}: {e}")
         return {}
 
-
-# TODO: Complete get_system_info()
-#   Return a dict with keys: "os", "node", "release", "machine"
-#   Use: platform.system(), platform.node(),
-#        platform.release(), platform.machine()
 def get_system_info():
     return{
         "os":       platform.system(),
@@ -38,12 +33,14 @@ def get_system_info():
         "release":  platform.release(),
         "machine":  platform.machine(),
     }
+
 def get_python_info():
     return {
         "version":      sys.version,
         "executable":   sys.executable,
         "platform":     sys.platform,
     }
+
 def get_directory_info(path):
     return{
         "path": os.path.abspath(path),
