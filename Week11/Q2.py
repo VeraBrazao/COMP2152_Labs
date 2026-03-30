@@ -39,7 +39,7 @@ class PasswordChecker:
         self.history.append((password, result))
         return result
     
-    
+
     # --- Main (provided) ---
 if __name__ == "__main__":
     print("=" * 60)
@@ -64,4 +64,5 @@ if __name__ == "__main__":
         print("  (no history)")
 
     print("\n" + "=" * 60)
+    
     
