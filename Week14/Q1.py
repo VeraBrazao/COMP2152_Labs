@@ -7,31 +7,35 @@ import urllib.request
 import json
 
 
-# TODO: Complete make_request(url)
-#   Use urllib.request.urlopen(url)
-#   Read response body: response.read().decode()
-#   Return: {"status": response.status, "headers": dict(response.headers), "body": body}
-#   If error occurs, return: {"status": 0, "headers": {}, "body": "", "error": str(e)}
+
 def make_request(url):
-    pass
+    try:
+        response = urllib.request.urlopen(url)
+        body = response.read().decode()
+        return {"status": response.status, "headers": dict(response.headers), "body": body}
+    except Exception as e:
+        return {"status": 0, "headers": {}, "body": "", "error": str(e)}
 
 
-# TODO: Complete parse_json(body)
-#   Use json.loads(body) to convert JSON string to a dictionary
-#   If it fails (ValueError), return None
+
+
 def parse_json(body):
-    pass
+    try:
+        return json.loads(body)
+    except (ValueError, json.JSONDecodeError):
+        return None
 
 
-# TODO: Complete check_api_info(response)
-#   Create a findings list
-#   Check headers for security issues:
-#     If "Server" in headers → append f"Server version exposed: {value}"
-#     If "X-Powered-By" in headers → append f"Technology exposed: {value}"
-#     If headers.get("Access-Control-Allow-Origin") == "*" → append "CORS: open to all origins"
-#   Return findings
 def check_api_info(response):
-    pass
+    findings = []
+    headers = response.get("headers", {})
+    if "Server" in headers:
+        findings.append(f"Server version exposed: {headers['Server']}")
+    if "X-Powered-By" in headers:
+        findings.append(f"Technology exposed: {headers['X-Powered-By']}")    
+    if headers.get("Access-Control-Allow-Origin") == "*":
+        findings.append("CORS: open to all origins")
+        return findings    
 
 
 # --- Main (provided) ---
